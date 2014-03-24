@@ -94,7 +94,7 @@ var FONT_FIT = function create_font_fit(style)
             var res;
             
             if (!fit_to) {
-                fit_to = {w: window.innerWidth, h: window.innerHeight};
+                fit_to = {w: window.innerWidth * .95, h: window.innerHeight * .95};
             } else if (isNaN(fit_to.w) || isNaN(fit_to.h)) {
                 throw "I need a number to fit the font!";
             }
