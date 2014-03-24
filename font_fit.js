@@ -100,9 +100,9 @@ var FONT_FIT = function create_font_fit(style)
             }
             
             ///HACK: IE comes out too big. Make it smaller.
-            /*@cc_on
+            if (/MSIE|Trident/.test(navigator.userAgent)) {
                 fit_to = {w: fit_to.w * .9, h: fit_to.h * .9};
-            @*/
+            }
             
             el.textContent = text;
             
