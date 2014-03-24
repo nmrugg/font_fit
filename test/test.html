@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <title>Font Fit Test</title>
+    <meta charset=utf-8>
+    <style>
+    html {
+        font-family: arial,sans-serif;
+        text-align: center;
+    }
+    </style>
+    <script src="../font_fit.js"></script>
+  </head>
+  <body>
+    <div contenteditable id=big>Some Really Big Editable Text</div>
+    <script>
+        "use strict";
+        
+        var font_fit = FONT_FIT({fontFamily: "arial,sans-serif"}),
+            big_el = document.getElementById("big");
+        
+        function fit()
+        {
+            big_el.style.fontSize = font_fit.fit(big_el.textContent, {w: window.innerWidth * .95, h: window.innerHeight * .95});
+        }
+        
+        window.addEventListener("resize", fit);
+        
+        setInterval(fit, 200);
+        
+        fit();
+        
+        function write(str, pos)
+        {
+            if (!pos) {
+                pos = 1;
+            }
+            
+            if (pos <= str.length) {
+                big_el.textContent = str.slice(0, pos);
+                fit();
+                setTimeout(function write_more()
+                {
+                    write(str, pos + 1);
+                }, 200);
+            }
+        }
+        
+        
+        write("Hello, world. I am font fit. I fit fonts. Click to edit.");
+    </script>
+  </body>
+</html>
