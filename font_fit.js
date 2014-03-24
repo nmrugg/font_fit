@@ -121,4 +121,4 @@ var FONT_FIT = function create_font_fit(style)
     };
     
     return obj;
-}
+};
