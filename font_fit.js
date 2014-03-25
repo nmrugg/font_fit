@@ -63,7 +63,7 @@ var FONT_FIT = function create_font_fit(style)
         }
         
         tries += 1;
-        if (tries > 1000) {
+        if (tries > 100) {
             throw "Can't fit the font!";
         }
         
