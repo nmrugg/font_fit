@@ -21,7 +21,7 @@ var FONT_FIT = function create_font_fit(style)
         });
     }
     
-    function get_optimal_size(size, fit_to, careful, dir)
+    function get_optimal_size(size, fit_to, unit, careful, dir)
     {
         var actual_w,
             actual_h,
@@ -30,7 +30,7 @@ var FONT_FIT = function create_font_fit(style)
             h_off,
             new_size;
         
-        el.style.fontSize = size + "px";
+        el.style.fontSize = size + unit;
         
         actual_w = el.offsetWidth;
         actual_h = el.offsetHeight;
@@ -80,7 +80,7 @@ var FONT_FIT = function create_font_fit(style)
         }
         
         /// Try again with a different size.
-        return get_optimal_size(new_size, fit_to, careful, dir);
+        return get_optimal_size(new_size, fit_to, unit, careful, dir);
     }
     
     obj = {
@@ -89,7 +89,7 @@ var FONT_FIT = function create_font_fit(style)
             el  = null;
             obj = null;
         },
-        fit: function fit(text, fit_to)
+        fit: function fit(text, fit_to, unit)
         {
             var res;
             
@@ -97,6 +97,9 @@ var FONT_FIT = function create_font_fit(style)
                 fit_to = {w: window.innerWidth * .95, h: window.innerHeight * .95};
             } else if (isNaN(fit_to.w) || isNaN(fit_to.h)) {
                 throw "I need a number to fit the font!";
+            }
+            if (!unit) {
+                unit = "px";
             }
             
             ///HACK: IE comes out too big. Make it smaller.
@@ -112,11 +115,11 @@ var FONT_FIT = function create_font_fit(style)
             if (text.indexOf(" ") > -1) {
                 tries = 0;
                 el.style.whiteSpace = "normal";
-                res = get_optimal_size(fit_to.w * text.length, fit_to, true);
+                res = get_optimal_size(fit_to.w * text.length, fit_to, unit, true);
             } else {
                 tries = 0;
                 el.style.whiteSpace = "nowrap"; /// Word wrapping causes unpredictable behavior.
-                res = get_optimal_size(Math.floor(fit_to.w / text.length), fit_to);
+                res = get_optimal_size(Math.floor(fit_to.w / text.length), fit_to, unit);
             }
             
             body.removeChild(el);
