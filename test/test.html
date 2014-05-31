@@ -3,15 +3,22 @@
     <title>Font Fit Test</title>
     <meta charset=utf-8>
     <style>
-    html {
+    td {
         font-family: arial,sans-serif;
         text-align: center;
+        vertical-align: middle;
+    }
+    table {
+        height: 100%;
+        width: 100%;
     }
     </style>
     <script src="../font_fit.js"></script>
   </head>
   <body>
+    <table><tr><td valign=middle>
     <div contenteditable id=big>Some Really Big Editable Text</div>
+    </td></tr></table>
     <script>
         "use strict";
         
@@ -44,7 +51,6 @@
                 }, 200);
             }
         }
-        
         
         write("Hello, world. I am font fit. I fit fonts. Click to edit.");
     </script>
