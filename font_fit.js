@@ -1,10 +1,13 @@
+// jshint bitwise:true, curly:true, eqeqeq:true, forin:true, immed:true, latedef:true, newcap:true, noarg:true, noempty:true, nonew:true, onevar:true, plusplus:true, quotmark:double, strict:true, undef:true, unused:strict, browser: true
+
+/* exported FONT_FIT */
+
 var FONT_FIT = function create_font_fit(style)
 {
     "use strict";
     
     var body = document.body,
         el = document.createElement("fontSizeTester"),
-        cur_styles,
         obj,
         tries;
     
@@ -94,7 +97,7 @@ var FONT_FIT = function create_font_fit(style)
             var res;
             
             if (!fit_to) {
-                fit_to = {w: window.innerWidth * .95, h: window.innerHeight * .95};
+                fit_to = {w: window.innerWidth * 0.95, h: window.innerHeight * 0.95};
             } else if (isNaN(fit_to.w) || isNaN(fit_to.h)) {
                 throw "I need a number to fit the font!";
             }
@@ -104,7 +107,7 @@ var FONT_FIT = function create_font_fit(style)
             
             ///HACK: IE comes out too big. Make it smaller.
             if (/MSIE|Trident/.test(navigator.userAgent)) {
-                fit_to = {w: fit_to.w * .88, h: fit_to.h * .88};
+                fit_to = {w: fit_to.w * 0.88, h: fit_to.h * 0.88};
             }
             
             el.textContent = text;
