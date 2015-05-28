@@ -2,6 +2,9 @@
 
 /* exported FONT_FIT */
 
+/// Nathan Rugg (c) 2015
+/// License: MIT (nate.mit-license.org)
+
 var FONT_FIT = function create_font_fit(style)
 {
     "use strict";
