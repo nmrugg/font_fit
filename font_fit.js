@@ -2,7 +2,7 @@
 
 /* exported FONT_FIT */
 
-/// Nathan Rugg (c) 2015
+/// Nathan Rugg (c) 2019
 /// License: MIT (nate.mit-license.org)
 
 var FONT_FIT = function create_font_fit(style)
@@ -12,7 +12,8 @@ var FONT_FIT = function create_font_fit(style)
     var body = document.body,
         el = document.createElement("fontSizeTester"),
         obj,
-        tries;
+        tries,
+        isIE = /MSIE|Trident/.test(navigator.userAgent);
     
     /// Make sure the element won't be visible. Although, since it removes itself immediately, you won't anyway.
     el.style.visibility = "hidden";
@@ -109,7 +110,7 @@ var FONT_FIT = function create_font_fit(style)
             }
             
             ///HACK: IE comes out too big. Make it smaller.
-            if (/MSIE|Trident/.test(navigator.userAgent)) {
+            if (isIE) {
                 fit_to = {w: fit_to.w * 0.88, h: fit_to.h * 0.88};
             }
             
