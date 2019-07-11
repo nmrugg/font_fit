@@ -23,16 +23,43 @@
         "use strict";
         
         var font_fit = FONT_FIT({fontFamily: "arial,sans-serif"}),
-            big_el = document.getElementById("big");
+            big_el = document.getElementById("big"),
+            timer;
         
         function fit()
         {
             big_el.style.fontSize = font_fit.fit(big_el.textContent, {w: window.innerWidth * .95, h: window.innerHeight * .95});
         }
         
-        window.addEventListener("resize", fit);
+        function cleanInput(e)
+        {
+            var text = (e.clipboardData || window.clipboardData).getData("text");
+            var selection = window.getSelection();
+            
+            if (!selection.rangeCount) {
+                return false;
+            }
+            selection.deleteFromDocument();
+            selection.getRangeAt(0).insertNode(document.createTextNode(text));
+            selection.collapseToEnd();
+            e.preventDefault();
+            
+            fit();
+        }
         
-        setInterval(fit, 200);
+        window.addEventListener("resize", fit);
+        big_el.addEventListener("input", fit);
+        big_el.addEventListener("paste", cleanInput);
+        
+        function clearTimer()
+        {
+            clearTimeout(timer);
+            big_el.removeEventListener("click", clearTimer);
+        }
+        
+        big_el.addEventListener("click", clearTimer);
+        
+        //setInterval(fit, 200);
         
         fit();
         
@@ -45,7 +72,7 @@
             if (pos <= str.length) {
                 big_el.textContent = str.slice(0, pos);
                 fit();
-                setTimeout(function write_more()
+                timer = setTimeout(function write_more()
                 {
                     write(str, pos + 1);
                 }, 200);
